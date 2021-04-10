@@ -7,8 +7,8 @@ import {uploadImage} from "../../../utilities/firebase/storage";
 
 export default function EditUserForm({onEditUserSuccess}:{onEditUserSuccess:()=>void}) {
     const [user]=useUser();
-    const [name, setName] = useState<string>(user?user.username:"");//name state
-    const [username, setUsername] = useState<string>(user?user.name:"");//username state
+    const [name, setName] = useState<string>(user?user.name:"");//name state
+    const [username, setUsername] = useState<string>(user?user.username:"");//username state
     const [bio, setBio] = useState<string>(user?user.bio:"");//bio state
     const [email, setEmail] = useState<string>(user?user.email:"");//email state
     const [role, setRole] = useState<any>(user?user.role:"member");//role state
