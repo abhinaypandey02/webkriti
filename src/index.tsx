@@ -6,11 +6,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContext from "./contexts/user_context";
+import SocietiesContext from "./contexts/societies_context";
 
 ReactDOM.render(
   <React.StrictMode>
       <UserContext>
-          <App />
+          <SocietiesContext>
+              <App />
+          </SocietiesContext>
       </UserContext>
   </React.StrictMode>,
   document.getElementById('root')

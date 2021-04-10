@@ -6,29 +6,27 @@ import NavigationBar from "./components/navigationBar/navigation_bar";
 import Society from "./interfaces/society";
 import {getSocieties} from "./utilities/firebase/firestore";
 import SocietyPage from "./pages/societyPage/society_page";
+import {useSocieties} from "./contexts/societies_context";
+import Footer from "./components/footer/footer";
 
 function App() {
-    const [societies, setSocieties] = useState<Society[]>([]);
-    useEffect(() => {
-        getSocieties().then(societiesData=> {
-            let societiesArray:Society[]=[];
-            societiesData.docs.forEach((doc:any)=>societiesArray.push(doc.data()))
-            setSocieties(societiesArray)
-        });
-    }, []);
-
+    const societies = useSocieties();
     return (
-        <div className="App">
+        <div className="App min-vh-100 d-flex flex-column">
             <HashRouter>
                 <NavigationBar/>
-                <Switch>
-                    <Route exact path={'/'} component={Homepage}/>
-                    {societies.map((society)=>(
-                        <Route path={'/'+society.slug}>
-                            <SocietyPage society={society}/>
-                        </Route>
-                    ))}
-                </Switch>
+                <div className={'flex-grow-1'}>
+                    <Switch>
+                        <Route exact path={'/'} component={Homepage}/>
+                        {societies.map((society)=>(
+                            <Route path={'/'+society.slug}>
+                                <SocietyPage society={society}/>
+                            </Route>
+                        ))}
+                    </Switch>
+                </div>
+
+                <Footer/>
             </HashRouter>
         </div>
     );
