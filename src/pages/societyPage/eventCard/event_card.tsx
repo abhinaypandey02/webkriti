@@ -10,7 +10,7 @@ export default function EventCard({society,event,onUpdateEvent}:{society:Society
         "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
     ];
 
-    const timeString=`${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+    const timeString=`${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()} ${date.getHours()<9?"0":""}${date.getHours()}:${date.getMinutes()<9?"0":""}${date.getMinutes()}`;
     function onDelete(){
         addEvent(society.events.filter(e=>new Date(e.time).getTime()!==new Date(event.time).getTime()),society).then(onUpdateEvent)
     }
