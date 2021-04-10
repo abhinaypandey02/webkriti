@@ -6,10 +6,10 @@ import {useUser} from "../../../contexts/user_context";
 
 export default function LoginForm({loginToReset,onLoginUserSuccess}:{loginToReset:any,onLoginUserSuccess: ()=>void}) {
     const [,setUser]=useUser();
-    const [password, setPassword] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");//password state
+    const [email, setEmail] = useState<string>("");//email state
     function onSubmit(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+        e.preventDefault();//preventing default form behaviour
         loginUser(email,password).then(()=>{
             getUserDocument(email).then((doc)=>{
                 setUser(doc.data())
@@ -21,11 +21,11 @@ export default function LoginForm({loginToReset,onLoginUserSuccess}:{loginToRese
         <Form onSubmit={onSubmit}>
             <Form.Group>
                 <Form.Label>Email</Form.Label>
-                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <Form.Control required={true} type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <Form.Control required={true} type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </Form.Group>
             <div>
                 <Button variant={'link'} onClick={loginToReset}>Forgot Password?</Button>

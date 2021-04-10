@@ -6,11 +6,11 @@ import User from "../../../interfaces/user";
 import {useUser} from "../../../contexts/user_context";
 
 export default function AddUserForm({onAddUserSuccess}:{onAddUserSuccess:()=>void}) {
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [role, setRole] = useState<any>("member");
-    const [user]=useUser();
+    const [username, setUsername] = useState<string>("");//username state
+    const [password, setPassword] = useState<string>("");//password state
+    const [email, setEmail] = useState<string>("");//email state
+    const [role, setRole] = useState<any>("member");//role state
+    const [user]=useUser();//global user
     function onSubmit(e:FormEvent<HTMLFormElement>) {
         e.preventDefault();
         addUser(email,password).then(()=>{
@@ -42,15 +42,15 @@ export default function AddUserForm({onAddUserSuccess}:{onAddUserSuccess:()=>voi
         <Form onSubmit={onSubmit}>
             <Form.Group>
                 <Form.Label>Username</Form.Label>
-                <Form.Control value={username} onChange={(e) => setUsername(e.target.value)}/>
+                <Form.Control required={true} value={username} onChange={(e) => setUsername(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Email</Form.Label>
-                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <Form.Control required={true} type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <Form.Control required={true} type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Role</Form.Label>

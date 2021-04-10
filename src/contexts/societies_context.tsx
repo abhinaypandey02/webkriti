@@ -13,6 +13,7 @@ export function useRefreshSocieties() {
     return useContext(refresh_societies_context);
 }
 export default function SocietiesContext({children}: { children: any }) {
+    //global state for societies
     const [societies, setSocieties] = useState<Society[]>([]);
 
     function fetchData(){

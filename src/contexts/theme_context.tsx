@@ -8,6 +8,7 @@ export function useTheme() {
 }
 
 export default function ThemeContext({children}: { children: any }) {
+    //global state for themes
     const [theme,setTheme] = useState<"dark"|"light">("light");
     return (
         <theme_context.Provider value={[theme, setTheme]}>

@@ -9,8 +9,8 @@ import Footer from "./components/footer/footer";
 import {useTheme} from "./contexts/theme_context";
 
 function App() {
-    const societies = useSocieties();
-    const [theme]=useTheme();
+    const societies = useSocieties();//global societies
+    const [theme]=useTheme();//global theme
     return (
         <div className={"App min-vh-100 d-flex flex-column "+(theme==="dark"&&"bg-dark")}>
             <HashRouter>

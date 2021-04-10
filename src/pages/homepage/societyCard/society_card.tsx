@@ -3,8 +3,8 @@ import {Card} from "react-bootstrap";
 import {useHistory} from 'react-router-dom';
 import {useTheme} from "../../../contexts/theme_context";
 export default function SocietyCard({society,index}:{society:Society,index:number}) {
-    const history=useHistory();
-    const [theme]=useTheme();
+    const history=useHistory();//for navigation through site
+    const [theme]=useTheme();//global state for theme
     return (
         <Card onClick={()=>history.push('/'+society.slug)} className={'my-3 pointer-on-hover '+(index%2===0?"text-left ":"text-right ")+(theme==="dark"?"bg-dark border-light":"shadow-2")}>
             <Card.Body className={'d-flex '+(index%2===0?"justify-content-start":"justify-content-end")}>

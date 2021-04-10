@@ -11,6 +11,7 @@ export function useUser() {
 }
 
 export default function UserContext({children}: { children: any }) {
+    //global state for user
     const [user, setUser] = useState<User | null | undefined>(undefined);
     useEffect(() => {
         fire.auth().onAuthStateChanged((user: any) => {

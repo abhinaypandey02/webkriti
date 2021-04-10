@@ -7,23 +7,24 @@ import {uploadImage} from "../../../utilities/firebase/storage";
 
 export default function EditUserForm({onEditUserSuccess}:{onEditUserSuccess:()=>void}) {
     const [user]=useUser();
-    const [name, setName] = useState<string>(user?user.username:"");
-    const [username, setUsername] = useState<string>(user?user.name:"");
-    const [bio, setBio] = useState<string>(user?user.bio:"");
-    const [email, setEmail] = useState<string>(user?user.email:"");
-    const [role, setRole] = useState<any>(user?user.bio:"member");
-    const [profilePicture, setProfilePicture] = useState<string|null>(user?user.profilePicture:null);
-    const [uploading, setUploading] = useState(false);
+    const [name, setName] = useState<string>(user?user.username:"");//name state
+    const [username, setUsername] = useState<string>(user?user.name:"");//username state
+    const [bio, setBio] = useState<string>(user?user.bio:"");//bio state
+    const [email, setEmail] = useState<string>(user?user.email:"");//email state
+    const [role, setRole] = useState<any>(user?user.bio:"member");//role state
+    const [profilePicture, setProfilePicture] = useState<string|null>(user?user.profilePicture:null);//profilepicture state
+    const [uploading, setUploading] = useState(false);//uploading state
 
     function onImageChange(e: any) {
         setUploading(true)
+        //uploading image
         uploadImage(user, e.target.files[0]).then((url) => {
             setProfilePicture(url);
             setUploading(false);
         }).catch(()=>setUploading(false));
     }
     function onSubmit(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+        e.preventDefault();//preventing default form behaviour
         const userT:User={
             name,
             username,
@@ -35,33 +36,24 @@ export default function EditUserForm({onEditUserSuccess}:{onEditUserSuccess:()=>
         updateUserDocument(userT).then(()=>{
             onEditUserSuccess();
         })
-        // const s:Society={
-        //     name:username,
-        //     bio:email,
-        //     slug:password,
-        //     coordinators:[],
-        //     members:[],
-        //     gallery:[]
-        // }
-        // addSociety(s);
     }
     return (
         <Form onSubmit={onSubmit}>
             <Form.Group>
                 <Form.Label>Name</Form.Label>
-                <Form.Control value={name} onChange={(e) => setName(e.target.value)}/>
+                <Form.Control required={true} value={name} onChange={(e) => setName(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Username</Form.Label>
-                <Form.Control value={username} onChange={(e) => setUsername(e.target.value)}/>
+                <Form.Control required={true} value={username} onChange={(e) => setUsername(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Bio</Form.Label>
-                <Form.Control value={bio} onChange={(e) => setBio(e.target.value)}/>
+                <Form.Control required={true} value={bio} onChange={(e) => setBio(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Email</Form.Label>
-                <Form.Control value={email} disabled={true} onChange={(e) => setEmail(e.target.value)}/>
+                <Form.Control required={true} type="email" value={email} disabled={true} onChange={(e) => setEmail(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Role</Form.Label>

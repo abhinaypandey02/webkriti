@@ -98,11 +98,11 @@ export default function SocietyPage({society}: { society: Society }) {
                 </Modal.Body>
             </Modal>
             <Jumbotron style={{backgroundColor:theme==="dark"?"black":"#F8F9FA"}}>
-                <div className={'display-2 '+(theme==="dark"&&"text-white")}>{society.name}</div>
+                <div className={'display-3 '+(theme==="dark"&&"text-white")}>{society.name}</div>
                 <div className={''+(theme==="dark"&&"text-white")}>{society.bio}</div>
             </Jumbotron>
-            <Container className={'d-flex '}>
-                <div className={'col-9'}>
+            <Container className={'d-flex flex-wrap'}>
+                <div className={'col-12 col-md-9'}>
                     <div className={'text-left'}>
                         <div className={'h1 mb-3'}>About:</div>
                         <div className={'m-3'}>{society.description}</div>
@@ -122,7 +122,7 @@ export default function SocietyPage({society}: { society: Society }) {
                             </Carousel>
                         </div>
                     </div>
-                    {coordinators.length > 0 && <div className={'text-left'}>
+                    {coordinators.length > 0 && <div className={'text-left mt-3'}>
                         <div className={'h1 mb-3'}>Coordinators:</div>
                         <div className={'d-flex flex-wrap m-3'}>{coordinators.map((coordinator,index) => <UserCard
                             user={coordinator} key={coordinator.username+index} />)}</div>
@@ -134,11 +134,11 @@ export default function SocietyPage({society}: { society: Society }) {
 
                     </div>}
                 </div>
-                <div className={'p-3 round-border col-3'}>
+                <div className={'p-3 round-border col-12 col-md-3'}>
                     <div className={'d-flex justify-content-between align-items-center'}>
                         <div className={'h4 m-0'}>Upcoming Events</div>
                         {user &&
-                        <Button onClick={() => setShowAddEventModal(true)} className={'ml-2 rounded-circle'}>+</Button>}
+                        <Button style={{width:40,height:40}} onClick={() => setShowAddEventModal(true)} className={'ml-2 rounded-circle'}>+</Button>}
                     </div>
                     <hr/>
                     {upcomingEvents.length > 0 ? upcomingEvents.map((event) =>

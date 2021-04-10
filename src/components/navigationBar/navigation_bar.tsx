@@ -8,36 +8,39 @@ import {logOut, sendResetPasswordLink} from "../../utilities/firebase/auth";
 import EditUserForm from "./forms/edit_user_form";
 import {useSocieties} from "../../contexts/societies_context";
 import {useTheme} from "../../contexts/theme_context";
+import {appName} from "../../utilities/config";
 
 export default function NavigationBar() {
-    const [user]=useUser();
-    const [theme,setTheme]=useTheme();
-    const societies = useSocieties();
-    const [showAddUserModal, setShowAddUserModal] = useState(false);
-    const [showLoginModal, setShowLoginModal] = useState(false);
-    const [showEditProfileModal, setShowEditProfileModal] = useState(false);
-    const [showResetPasswordModal,setShowResetPasswordModal]=useState(false);
-    const [email, setEmail] = useState("");
+    const [user]=useUser();//current user
+    const [theme,setTheme]=useTheme();//get theme
+    const societies = useSocieties();//get societies
+    const [showAddUserModal, setShowAddUserModal] = useState(false);//add user modal visibility
+    const [showLoginModal, setShowLoginModal] = useState(false);//login modal visibility
+    const [showEditProfileModal, setShowEditProfileModal] = useState(false);//edit profile modal visibility
+    const [showResetPasswordModal,setShowResetPasswordModal]=useState(false);//reset password modal visibility
+    const [email, setEmail] = useState("");//reset password email
 
     function onAddUserSuccess(){
-        setShowAddUserModal(false);
+        //after adding a user
+        setShowAddUserModal(false);//disable modal
         setTimeout(()=>alert("User Added"),0)
     }
     function onEditUserSuccess(){
-        setShowEditProfileModal(false);
+        //after editing user
+        setShowEditProfileModal(false);//disable modal
         setTimeout(()=>alert("User Updated"),0)
     }
     function onLoginUserSuccess(){
-        setShowLoginModal(false);
+        setShowLoginModal(false);//disable modal
     }
     function loginToReset(){
-        setShowLoginModal(false);
-        setShowResetPasswordModal(true);
+        setShowLoginModal(false);//disable modal
+        setShowResetPasswordModal(true);//enable modal
     }
     function onResetPassword(e:any){
         e.preventDefault();
         sendResetPasswordLink(email).then(()=>{
-            setShowResetPasswordModal(false);
+            setShowResetPasswordModal(false);//disable modal
             setTimeout(()=>alert("Email Sent if account exists!"),0)
         })
     }
@@ -63,7 +66,7 @@ export default function NavigationBar() {
                     <Form onSubmit={onResetPassword}>
                         <Form.Group>
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                            <Form.Control required={true} type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                         </Form.Group>
                         <Button type={'submit'}>Send Reset Password Link</Button>
                     </Form>
@@ -77,7 +80,7 @@ export default function NavigationBar() {
                 </Modal.Body>
 
             </Modal>
-            <Navbar.Brand className={(theme==="dark"?"text-white":"text-dark")} as={Link} to='/'>Web-Kriti</Navbar.Brand>
+            <Navbar.Brand className={(theme==="dark"?"text-white":"text-dark")} as={Link} to='/'>{appName}</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

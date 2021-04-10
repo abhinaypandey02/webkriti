@@ -6,11 +6,11 @@ import Society from "../../../interfaces/society";
 import EventInterface from "../../../interfaces/event";
 import {addEvent} from "../../../utilities/firebase/firestore";
 export default function EventForm({society,onUpdateEvent}:{society:Society,onUpdateEvent:()=>void}) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [startDate, setStartDate] = useState<any>(new Date());
+    const [title, setTitle] = useState("");//title state
+    const [description, setDescription] = useState("");//description state
+    const [startDate, setStartDate] = useState<any>(new Date());//start date state
     function onSubmit(e:FormEvent<HTMLFormElement>){
-        e.preventDefault();
+        e.preventDefault();//prevent default form behaviour
         const event:EventInterface={
             title,description,time:startDate.toISOString()
         }
