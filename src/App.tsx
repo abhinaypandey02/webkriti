@@ -10,7 +10,11 @@ import SocietyPage from "./pages/societyPage/society_page";
 function App() {
     const [societies, setSocieties] = useState<Society[]>([]);
     useEffect(() => {
-        getSocieties().then(societiesData=>setSocieties(societiesData));
+        getSocieties().then(societiesData=> {
+            let societiesArray:Society[]=[];
+            societiesData.docs.forEach((doc:any)=>societiesArray.push(doc.data()))
+            setSocieties(societiesArray)
+        });
     }, []);
 
     return (
@@ -20,7 +24,7 @@ function App() {
                 <Switch>
                     <Route exact path={'/'} component={Homepage}/>
                     {societies.map((society)=>(
-                        <Route path={society.route}>
+                        <Route path={'/'+society.slug}>
                             <SocietyPage society={society}/>
                         </Route>
                     ))}

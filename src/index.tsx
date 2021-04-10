@@ -5,10 +5,13 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import UserContext from "./contexts/user_context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <UserContext>
+          <App />
+      </UserContext>
   </React.StrictMode>,
   document.getElementById('root')
 );

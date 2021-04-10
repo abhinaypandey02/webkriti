@@ -4,19 +4,39 @@ import Society from "../../interfaces/society";
 import {getSocieties} from "../../utilities/firebase/firestore";
 import {Link} from 'react-router-dom';
 import AddUserForm from "./forms/add_user_form";
+import LoginForm from "./forms/login_form";
+import {useUser} from "../../contexts/user_context";
+import {logOut} from "../../utilities/firebase/auth";
 
 export default function NavigationBar() {
+    const [user,setUser]=useUser();
     const [societies, setSocieties] = useState<Society[]>([]);
     const [showAddUserModal, setShowAddUserModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     useEffect(() => {
-        getSocieties().then(societiesData => setSocieties(societiesData));
+        getSocieties().then(societiesData => {
+            let societiesArray:Society[]=[];
+            societiesData.docs.forEach((doc:any)=>societiesArray.push(doc.data()))
+            setSocieties(societiesArray)
+        });
     }, []);
+    function onAddUserSuccess(){
+        setShowAddUserModal(false);
+        setTimeout(()=>alert("User Added"),0)
+    }
     return (
         <Navbar bg="light" expand="lg">
             <Modal onHide={()=>setShowAddUserModal(false)} show={showAddUserModal} centered>
                 <Modal.Header closeButton>Add User</Modal.Header>
                 <Modal.Body>
-                    <AddUserForm/>
+                    <AddUserForm onAddUserSuccess={onAddUserSuccess}/>
+                </Modal.Body>
+
+            </Modal>
+            <Modal onHide={()=>setShowLoginModal(false)} show={showLoginModal} centered>
+                <Modal.Header closeButton>Login</Modal.Header>
+                <Modal.Body>
+                    <LoginForm/>
                 </Modal.Body>
 
             </Modal>
@@ -27,11 +47,15 @@ export default function NavigationBar() {
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <NavDropdown title="Societies" id="basic-nav-dropdown">
                         {societies.map((society) => <NavDropdown.Item as={Link}
-                                                                      to={society.route}>{society.name}</NavDropdown.Item>)}
+                                                                      to={'/'+society.slug}>{society.name}</NavDropdown.Item>)}
                     </NavDropdown>
                 </Nav>
                 <Nav>
-                    <Nav.Link onClick={()=>setShowAddUserModal(true)}>Add User</Nav.Link>
+                    {user&&user.role!=="member"&&<Nav.Link onClick={()=>setShowAddUserModal(true)}>Add User</Nav.Link>}
+                    {user?<NavDropdown title={user.username} id="basic-nav-dropdown">
+                        <NavDropdown.Item onClick={()=>logOut()}>Log out</NavDropdown.Item>
+                    </NavDropdown>:<Nav.Link onClick={()=>setShowLoginModal(true)}>Login</Nav.Link>}
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

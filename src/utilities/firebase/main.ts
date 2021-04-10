@@ -9,4 +9,5 @@ let firebaseConfig = {
     measurementId: "G-D61WEC8FGW"
 };
 const fire=firebase.initializeApp(firebaseConfig);
+export const extra=firebase.initializeApp(firebaseConfig,"extra");
 export default fire;
