@@ -36,7 +36,7 @@
 3. A `utilities` folder is present to contain the extra utility of the code like firebase tools, config file.
 
 ## Developer Info
-### Name - Abhinay Pandey
-### College - IIIT Lucknow ( 1st Year )
-### Skills - ReactJS, Firebase, MongoDB, ExpressJS, NodeJS, Bootstrap
+Name - Abhinay Pandey  
+College - IIIT Lucknow ( 1st Year )  
+Skills - ReactJS, Firebase, MongoDB, ExpressJS, NodeJS, Bootstrap  
 
