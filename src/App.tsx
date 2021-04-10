@@ -8,11 +8,13 @@ import {getSocieties} from "./utilities/firebase/firestore";
 import SocietyPage from "./pages/societyPage/society_page";
 import {useSocieties} from "./contexts/societies_context";
 import Footer from "./components/footer/footer";
+import {useTheme} from "./contexts/theme_context";
 
 function App() {
     const societies = useSocieties();
+    const [theme]=useTheme();
     return (
-        <div className="App min-vh-100 d-flex flex-column">
+        <div className={"App min-vh-100 d-flex flex-column "+(theme==="dark"&&"bg-dark")}>
             <HashRouter>
                 <NavigationBar/>
                 <div className={'flex-grow-1'}>

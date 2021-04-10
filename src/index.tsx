@@ -7,12 +7,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContext from "./contexts/user_context";
 import SocietiesContext from "./contexts/societies_context";
+import ThemeContext from "./contexts/theme_context";
 
 ReactDOM.render(
   <React.StrictMode>
       <UserContext>
           <SocietiesContext>
-              <App />
+              <ThemeContext>
+                  <App />
+
+              </ThemeContext>
           </SocietiesContext>
       </UserContext>
   </React.StrictMode>,

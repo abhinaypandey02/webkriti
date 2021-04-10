@@ -7,9 +7,11 @@ import {useUser} from "../../contexts/user_context";
 import {logOut} from "../../utilities/firebase/auth";
 import EditUserForm from "./forms/edit_user_form";
 import {useSocieties} from "../../contexts/societies_context";
+import {useTheme} from "../../contexts/theme_context";
 
 export default function NavigationBar() {
     const [user,setUser]=useUser();
+    const [theme,setTheme]=useTheme();
     const societies = useSocieties();
     const [showAddUserModal, setShowAddUserModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -26,7 +28,7 @@ export default function NavigationBar() {
         setShowLoginModal(false);
     }
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar style={{backgroundColor:(theme==="dark"?"black":"#F8F9FA")}}  expand="lg">
             <Modal onHide={()=>setShowAddUserModal(false)} show={showAddUserModal} centered>
                 <Modal.Header closeButton>Add User</Modal.Header>
                 <Modal.Body>
@@ -48,23 +50,25 @@ export default function NavigationBar() {
                 </Modal.Body>
 
             </Modal>
-            <Navbar.Brand as={Link} to='/'>Web-Kriti</Navbar.Brand>
+            <Navbar.Brand className={(theme==="dark"?"text-white":"text-dark")} as={Link} to='/'>Web-Kriti</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                    <NavDropdown title="Societies" id="basic-nav-dropdown">
+                    <Nav.Link className={(theme==="dark"?"text-white":"text-dark")} as={Link} to="/">Home</Nav.Link>
+                    <NavDropdown className={(theme==="dark"?"text-white":"text-dark")} title={<span className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")}>Societies</span>} id="basic-nav-dropdown">
                         {societies.map((society) => <NavDropdown.Item as={Link}
                                                                       to={'/'+society.slug}>{society.name}</NavDropdown.Item>)}
                     </NavDropdown>
                 </Nav>
-                <Nav>
-                    {user&&user.role!=="member"&&<Nav.Link onClick={()=>setShowAddUserModal(true)}>Add User</Nav.Link>}
-                    {user?<NavDropdown alignRight title={user.username} id="basic-nav-dropdown">
+                <Nav className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")}>
+                    <div className={'d-flex'}>Dark Mode <Form.Switch className={'ml-2'} id={'theme'} checked={theme==="dark"} onChange={(e)=>setTheme(e.target.checked?"dark":"light")}/></div>
+
+
+                    {user&&user.role!=="member"&&<Nav.Link className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")} onClick={()=>setShowAddUserModal(true)}>Add User</Nav.Link>}
+                    {user?<NavDropdown alignRight title={<span className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")}>{user.username}</span>} id="basic-nav-dropdown">
                         <NavDropdown.Item onClick={()=>setShowEditProfileModal(true)}>Edit Profile</NavDropdown.Item>
                         <NavDropdown.Item onClick={()=>logOut()}>Log out</NavDropdown.Item>
-                    </NavDropdown>:<Nav.Link onClick={()=>setShowLoginModal(true)}>Login</Nav.Link>}
-
+                    </NavDropdown>:<Nav.Link className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")} onClick={()=>setShowLoginModal(true)}>Login</Nav.Link>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -25,3 +25,6 @@ export async function addSociety(society:Society){
 export async function addEvent(events:EventInterface[],society:Society){
     return await fire.firestore().collection('societies').doc(society.name).update({events});
 }
+export async function addGalleryImage(url:string,society:Society){
+    return await fire.firestore().collection('societies').doc(society.name).update({gallery:[...society.gallery,url]});
+}

@@ -1,15 +1,22 @@
-import {Container} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 import {useSocieties} from "../../contexts/societies_context";
 import {Link} from 'react-router-dom';
+import {useTheme} from "../../contexts/theme_context";
 export default function Footer() {
     const societies=useSocieties();
+    const [theme]=useTheme();
     return (
-        <Container style={{backgroundColor:"#F8F9FA"}} fluid={true}>
+        <Container className={'mt-5 '+(theme==="dark"?"text-white ":"text-dark")} style={{backgroundColor:(theme==="dark"?"black":"#F8F9FA")}} fluid={true}>
             <Container className={'d-flex p-3 align-items-center justify-content-around'}>
-                <h2>WebKriti</h2>
-                <ul>
-                    {societies.map((society)=><li><Link to={'/'+society.slug}>{society.name}</Link></li>)}
-                </ul>
+                    <Col>
+                        <h2>WebKriti</h2>
+
+                    </Col>
+                    <Col>
+                        <div>Societies</div>
+                        {societies.map((society)=><div><Link to={'/'+society.slug}>{society.name}</Link></div>)}
+                    </Col>
+
             </Container>
         </Container>
     );
