@@ -11,7 +11,7 @@ export default function EditUserForm({onEditUserSuccess}:{onEditUserSuccess:()=>
     const [username, setUsername] = useState<string>(user?user.name:"");//username state
     const [bio, setBio] = useState<string>(user?user.bio:"");//bio state
     const [email, setEmail] = useState<string>(user?user.email:"");//email state
-    const [role, setRole] = useState<any>(user?user.bio:"member");//role state
+    const [role, setRole] = useState<any>(user?user.role:"member");//role state
     const [profilePicture, setProfilePicture] = useState<string|null>(user?user.profilePicture:null);//profilepicture state
     const [uploading, setUploading] = useState(false);//uploading state
 
