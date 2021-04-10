@@ -5,7 +5,7 @@ export default interface Society{
     bio:string,
     slug:string,
 
-    coordinators:User[],
-    members:User[],
+    coordinators:string[],
+    members:string[],
     gallery:string[]
 }

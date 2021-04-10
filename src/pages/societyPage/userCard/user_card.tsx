@@ -1,0 +1,14 @@
+import User from "../../../interfaces/user";
+import {Card} from "react-bootstrap";
+const DEFAULT_PP="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+export default function UserCard({user}:{user:User}) {
+    return (
+        <Card className={'m-3 shadow-2'} style={{ width: '18rem' }}>
+            <Card.Body className={'d-flex flex-column'}>
+                <img className={'align-self-center'} src={user.profilePicture?user.profilePicture:DEFAULT_PP} style={{maxHeight:200}}/>
+                <h3 className={'m-0 mt-2'}>{user.name}</h3>
+                <small className={'text-muted'}>{user.bio}</small>
+            </Card.Body>
+        </Card>
+    );
+}

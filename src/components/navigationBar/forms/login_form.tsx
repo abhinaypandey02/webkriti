@@ -5,7 +5,7 @@ import {addUserDocument, getUserDocument} from "../../../utilities/firebase/fire
 import {Button, Form} from "react-bootstrap";
 import {useUser} from "../../../contexts/user_context";
 
-export default function LoginForm() {
+export default function LoginForm({onLoginUserSuccess}:{onLoginUserSuccess: ()=>void}) {
     const [,setUser]=useUser();
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -14,6 +14,7 @@ export default function LoginForm() {
         loginUser(email,password).then(()=>{
             getUserDocument(email).then((doc)=>{
                 setUser(doc.data())
+                onLoginUserSuccess();
             })
         })
     }

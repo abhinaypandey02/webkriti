@@ -14,27 +14,28 @@ export default function AddUserForm({onAddUserSuccess}:{onAddUserSuccess:()=>voi
     const [user,setUser]=useUser();
     function onSubmit(e:FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        // addUser(email,password).then(()=>{
-        //     const user:User={
-        //         name:username,
-        //         username,
-        //         email,
-        //         bio:"",
-        //         role
-        //     }
-        //     addUserDocument(user).then(()=>{
-        //         onAddUserSuccess();
-        //     })
-        // })
-        const s:Society={
-            name:username,
-            bio:email,
-            slug:password,
-            coordinators:[],
-            members:[],
-            gallery:[]
-        }
-        addSociety(s);
+        addUser(email,password).then(()=>{
+            const user:User={
+                name:username,
+                username,
+                email,
+                bio:"",
+                role,
+                profilePicture:null
+            }
+            addUserDocument(user).then(()=>{
+                onAddUserSuccess();
+            })
+        })
+        // const s:Society={
+        //     name:username,
+        //     bio:email,
+        //     slug:password,
+        //     coordinators:[],
+        //     members:[],
+        //     gallery:[]
+        // }
+        // addSociety(s);
     }
     return (
         <Form onSubmit={onSubmit}>

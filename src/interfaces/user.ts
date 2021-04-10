@@ -3,5 +3,6 @@ export default interface User{
     bio:string,
     username:string,
     email:string
-    role:"admin"|"coordinator"|"member"
+    role:"admin"|"coordinator"|"member",
+    profilePicture:string|null
 }
