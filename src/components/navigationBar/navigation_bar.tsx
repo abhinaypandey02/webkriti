@@ -1,10 +1,10 @@
-import {Navbar, Nav, NavDropdown, Modal, Form} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Modal, Form, Button} from "react-bootstrap";
 import { useState} from "react";
 import {Link} from 'react-router-dom';
 import AddUserForm from "./forms/add_user_form";
 import LoginForm from "./forms/login_form";
 import {useUser} from "../../contexts/user_context";
-import {logOut} from "../../utilities/firebase/auth";
+import {logOut, sendResetPasswordLink} from "../../utilities/firebase/auth";
 import EditUserForm from "./forms/edit_user_form";
 import {useSocieties} from "../../contexts/societies_context";
 import {useTheme} from "../../contexts/theme_context";
@@ -16,6 +16,9 @@ export default function NavigationBar() {
     const [showAddUserModal, setShowAddUserModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+    const [showResetPasswordModal,setShowResetPasswordModal]=useState(false);
+    const [email, setEmail] = useState("");
+
     function onAddUserSuccess(){
         setShowAddUserModal(false);
         setTimeout(()=>alert("User Added"),0)
@@ -27,6 +30,17 @@ export default function NavigationBar() {
     function onLoginUserSuccess(){
         setShowLoginModal(false);
     }
+    function loginToReset(){
+        setShowLoginModal(false);
+        setShowResetPasswordModal(true);
+    }
+    function onResetPassword(e:any){
+        e.preventDefault();
+        sendResetPasswordLink(email).then(()=>{
+            setShowResetPasswordModal(false);
+            setTimeout(()=>alert("Email Sent if account exists!"),0)
+        })
+    }
     return (
         <Navbar style={{backgroundColor:(theme==="dark"?"black":"#F8F9FA")}}  expand="lg">
             <Modal onHide={()=>setShowAddUserModal(false)} show={showAddUserModal} centered>
@@ -36,17 +50,30 @@ export default function NavigationBar() {
                 </Modal.Body>
 
             </Modal>
-            <Modal onHide={()=>setShowEditProfileModal(false)} show={showEditProfileModal} centered>
-                <Modal.Header closeButton>Add User</Modal.Header>
+            <Modal onHide={()=>setShowEditProfileModal(false)} show={showEditProfileModal} centered={true}>
+                <Modal.Header closeButton={true}>Add User</Modal.Header>
                 <Modal.Body>
                     <EditUserForm onEditUserSuccess={onEditUserSuccess}/>
                 </Modal.Body>
 
             </Modal>
-            <Modal onHide={()=>setShowLoginModal(false)} show={showLoginModal} centered>
-                <Modal.Header closeButton>Login</Modal.Header>
+            <Modal onHide={()=>setShowResetPasswordModal(false)} show={showResetPasswordModal} centered={true}>
+                <Modal.Header closeButton={true}>Reset Password</Modal.Header>
                 <Modal.Body>
-                    <LoginForm onLoginUserSuccess={onLoginUserSuccess}/>
+                    <Form onSubmit={onResetPassword}>
+                        <Form.Group>
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                        </Form.Group>
+                        <Button type={'submit'}>Send Reset Password Link</Button>
+                    </Form>
+                </Modal.Body>
+
+            </Modal>
+            <Modal onHide={()=>setShowLoginModal(false)} show={showLoginModal} centered={true}>
+                <Modal.Header closeButton={true}>Login</Modal.Header>
+                <Modal.Body>
+                    <LoginForm loginToReset={loginToReset} onLoginUserSuccess={onLoginUserSuccess}/>
                 </Modal.Body>
 
             </Modal>

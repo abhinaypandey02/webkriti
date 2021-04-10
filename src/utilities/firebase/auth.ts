@@ -7,6 +7,8 @@ export async function loginUser(username:string,password:string) {
     return await fire.auth().signInWithEmailAndPassword(username,password);
 }
 export async function logOut(){
-    console.log("trU")
     return await fire.auth().signOut();
+}
+export async function sendResetPasswordLink(email:string){
+    return await fire.auth().sendPasswordResetEmail(email);
 }

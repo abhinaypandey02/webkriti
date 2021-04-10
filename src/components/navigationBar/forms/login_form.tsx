@@ -4,7 +4,7 @@ import { getUserDocument} from "../../../utilities/firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import {useUser} from "../../../contexts/user_context";
 
-export default function LoginForm({onLoginUserSuccess}:{onLoginUserSuccess: ()=>void}) {
+export default function LoginForm({loginToReset,onLoginUserSuccess}:{loginToReset:any,onLoginUserSuccess: ()=>void}) {
     const [,setUser]=useUser();
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -27,6 +27,9 @@ export default function LoginForm({onLoginUserSuccess}:{onLoginUserSuccess: ()=>
                 <Form.Label>Password</Form.Label>
                 <Form.Control value={password} onChange={(e) => setPassword(e.target.value)}/>
             </Form.Group>
+            <div>
+                <Button variant={'link'} onClick={loginToReset}>Forgot Password?</Button>
+            </div>
             <Button type={'submit'}>Login</Button>
         </Form>
     );
