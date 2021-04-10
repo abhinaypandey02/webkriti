@@ -1,5 +1,9 @@
 # Webkriti - Abhinay Pandey [![CI/CD](https://github.com/abhinaypandey02/webkriti/actions/workflows/main.yml/badge.svg)](https://github.com/abhinaypandey02/webkriti/actions/workflows/main.yml)
 
+### Links
+Live URL - https://abhinaypandey02.github.io/webkriti/#/
+Youtube Video - https://youtu.be/Avv7JuEj11w
+ 
 ## How to run on your local server
 1. Clone the repo
 2. Run `npm install` to install all the dependency
