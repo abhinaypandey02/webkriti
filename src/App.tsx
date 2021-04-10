@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import {HashRouter, Switch, Route} from "react-router-dom";
+import Homepage from "./pages/homepage/homepage";
+import NavigationBar from "./components/navigationBar/navigation_bar";
+import Society from "./interfaces/society";
+import {getSocieties} from "./utilities/firebase/firestore";
+import SocietyPage from "./pages/societyPage/society_page";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [societies, setSocieties] = useState<Society[]>([]);
+    useEffect(() => {
+        getSocieties().then(societiesData=>setSocieties(societiesData));
+    }, []);
+
+    return (
+        <div className="App">
+            <HashRouter>
+                <NavigationBar/>
+                <Switch>
+                    <Route exact path={'/'} component={Homepage}/>
+                    {societies.map((society)=>(
+                        <Route path={society.route}>
+                            <SocietyPage society={society}/>
+                        </Route>
+                    ))}
+                </Switch>
+            </HashRouter>
+        </div>
+    );
 }
 
 export default App;
