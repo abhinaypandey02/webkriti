@@ -1,5 +1,5 @@
 import {Navbar, Nav, NavDropdown, Modal, Form} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import {Link} from 'react-router-dom';
 import AddUserForm from "./forms/add_user_form";
 import LoginForm from "./forms/login_form";
@@ -10,7 +10,7 @@ import {useSocieties} from "../../contexts/societies_context";
 import {useTheme} from "../../contexts/theme_context";
 
 export default function NavigationBar() {
-    const [user,setUser]=useUser();
+    const [user]=useUser();
     const [theme,setTheme]=useTheme();
     const societies = useSocieties();
     const [showAddUserModal, setShowAddUserModal] = useState(false);
@@ -56,7 +56,7 @@ export default function NavigationBar() {
                 <Nav className="mr-auto">
                     <Nav.Link className={(theme==="dark"?"text-white":"text-dark")} as={Link} to="/">Home</Nav.Link>
                     <NavDropdown className={(theme==="dark"?"text-white":"text-dark")} title={<span className={'align-items-center '+(theme==="dark"?"text-white":"text-dark")}>Societies</span>} id="basic-nav-dropdown">
-                        {societies.map((society) => <NavDropdown.Item as={Link}
+                        {societies.map((society) => <NavDropdown.Item key={society.name} as={Link}
                                                                       to={'/'+society.slug}>{society.name}</NavDropdown.Item>)}
                     </NavDropdown>
                 </Nav>

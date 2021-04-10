@@ -1,13 +1,12 @@
 import {FormEvent, useState} from "react";
 import {useUser} from "../../../contexts/user_context";
-import {addUser} from "../../../utilities/firebase/auth";
 import User from "../../../interfaces/user";
-import {addUserDocument, updateUserDocument} from "../../../utilities/firebase/firestore";
+import { updateUserDocument} from "../../../utilities/firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import {uploadImage} from "../../../utilities/firebase/storage";
 
 export default function EditUserForm({onEditUserSuccess}:{onEditUserSuccess:()=>void}) {
-    const [user,setUser]=useUser();
+    const [user]=useUser();
     const [name, setName] = useState<string>(user?user.username:"");
     const [username, setUsername] = useState<string>(user?user.name:"");
     const [bio, setBio] = useState<string>(user?user.bio:"");

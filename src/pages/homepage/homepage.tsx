@@ -9,7 +9,7 @@ export default function Homepage() {
     return (
         <Container className={''+(theme==="dark"&&"bg-dark")}>
             <div className={'display-4 my-5 '+(theme==="dark"&&"text-white")}>Societies:</div>
-            {societies.map((society,index)=><SocietyCard index={index} society={society}/>)}
+            {societies.map((society,index)=><SocietyCard key={society.name} index={index} society={society}/>)}
         </Container>
     );
 }

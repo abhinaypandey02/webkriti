@@ -1,4 +1,4 @@
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Col} from "react-bootstrap";
 import {useSocieties} from "../../contexts/societies_context";
 import {Link} from 'react-router-dom';
 import {useTheme} from "../../contexts/theme_context";
@@ -14,7 +14,7 @@ export default function Footer() {
                     </Col>
                     <Col>
                         <div>Societies</div>
-                        {societies.map((society)=><div><Link to={'/'+society.slug}>{society.name}</Link></div>)}
+                        {societies.map((society)=><div key={society.name}><Link to={'/'+society.slug}>{society.name}</Link></div>)}
                     </Col>
 
             </Container>

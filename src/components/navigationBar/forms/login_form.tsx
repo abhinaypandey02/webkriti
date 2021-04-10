@@ -1,7 +1,6 @@
 import {FormEvent, useState} from "react";
-import {addUser, loginUser} from "../../../utilities/firebase/auth";
-import User from "../../../interfaces/user";
-import {addUserDocument, getUserDocument} from "../../../utilities/firebase/firestore";
+import { loginUser} from "../../../utilities/firebase/auth";
+import { getUserDocument} from "../../../utilities/firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import {useUser} from "../../../contexts/user_context";
 

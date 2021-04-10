@@ -16,9 +16,7 @@ export default function SocietiesContext({children}: { children: any }) {
     const [societies, setSocieties] = useState<Society[]>([]);
 
     function fetchData(){
-        console.log(1)
         getSocieties().then(societiesData => {
-            console.log(societiesData.docs[0].data())
 
             let societiesArray:Society[]=[];
             societiesData.docs.forEach((doc:any)=>societiesArray.push(doc.data()))

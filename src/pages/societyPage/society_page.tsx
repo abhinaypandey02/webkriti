@@ -8,7 +8,7 @@ import {useUser} from "../../contexts/user_context";
 import EventForm from "./eventForm/event_form";
 import EventCard from "./eventCard/event_card";
 import {useRefreshSocieties} from "../../contexts/societies_context";
-import {uploadGalleryImage, uploadImage} from "../../utilities/firebase/storage";
+import {uploadGalleryImage} from "../../utilities/firebase/storage";
 import {useTheme} from "../../contexts/theme_context";
 
 export default function SocietyPage({society}: { society: Society }) {
@@ -69,7 +69,7 @@ export default function SocietyPage({society}: { society: Society }) {
     useEffect(() => {
         updateCoordinators();
         updateMembers()
-
+        // eslint-disable-next-line
     }, [society]);
     const [theme]=useTheme();
     return (
@@ -107,7 +107,7 @@ export default function SocietyPage({society}: { society: Society }) {
                         <div className={'h1 mb-3'}>About:</div>
                         <div className={'m-3'}>{society.description}</div>
                     </div>
-                    {society.gallery.length > 0 && <div className={'text-left'}>
+                    <div className={'text-left'}>
                         <div className={'d-flex justify-content-between'}>
                             <div className={'h1 mb-3'}>Gallery:</div>
                             {user &&
@@ -116,21 +116,21 @@ export default function SocietyPage({society}: { society: Society }) {
 
                         <div className={'m-3 '}>
                             <Carousel>
-                                {society.gallery.map(url => <Carousel.Item>
-                                    <img className={'d-block w-100'} src={url} alt={society.name}/>
+                                {society.gallery.map((url,index) => <Carousel.Item key={url+index}>
+                                    <img  className={'d-block w-100'} src={url} alt={society.name}/>
                                 </Carousel.Item>)}
                             </Carousel>
                         </div>
-                    </div>}
+                    </div>
                     {coordinators.length > 0 && <div className={'text-left'}>
                         <div className={'h1 mb-3'}>Coordinators:</div>
-                        <div className={'d-flex flex-wrap m-3'}>{coordinators.map(coordinator => <UserCard
-                            user={coordinator}/>)}</div>
+                        <div className={'d-flex flex-wrap m-3'}>{coordinators.map((coordinator,index) => <UserCard
+                            user={coordinator} key={coordinator.username+index} />)}</div>
 
                     </div>}
                     {members.length > 0 && <div className={'text-left'}>
                         <div className={'h1 mb-3'}>Members:</div>
-                        <div className={'d-flex flex-wrap m-3'}>{members.map(member => <UserCard user={member}/>)}</div>
+                        <div className={'d-flex flex-wrap m-3'}>{members.map((member,index) => <UserCard key={member.username+index} user={member}/>)}</div>
 
                     </div>}
                 </div>
@@ -142,7 +142,7 @@ export default function SocietyPage({society}: { society: Society }) {
                     </div>
                     <hr/>
                     {upcomingEvents.length > 0 ? upcomingEvents.map((event) =>
-                        <EventCard society={society} event={event} onUpdateEvent={onUpdateEvent}/>
+                        <EventCard key={event.time} society={society} event={event} onUpdateEvent={onUpdateEvent}/>
                     ) : "No Upcoming Events!"}
 
                 </div>

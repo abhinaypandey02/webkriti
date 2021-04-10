@@ -1,7 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import User from "../interfaces/user";
-import fire from "../utilities/firebase/main";
-import {getUserDocument} from "../utilities/firebase/firestore";
+import {createContext, useContext, useState} from "react";
 
 
 const theme_context = createContext<["dark"|"light", any]>(["light", undefined]);
