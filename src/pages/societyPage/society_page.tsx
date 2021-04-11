@@ -105,7 +105,7 @@ export default function SocietyPage({society}: { society: Society }) {
                 <div className={'col-12 col-md-9'}>
                     <div className={'text-left'}>
                         <div className={'h1 mb-3'}>About:</div>
-                        <div className={'m-3'}>{society.description}</div>
+                        <div className={'m-3 text-center text-md-left'}>{society.description}</div>
                     </div>
                     <div className={'text-left'}>
                         <div className={'d-flex justify-content-between'}>
